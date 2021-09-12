@@ -6,19 +6,20 @@ const loadProducts = () => {
 };
 loadProducts();
 
-// show all product in UI 
+// show all product in UI
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
-    const image = product.images;
+    // const image = product.images;
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `<div class="single-product">
       <div>
-    <img class="product-image" src=${image}></img>
+    <img class="product-image" src=${product.image}></img>
       </div>
       <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
+      <p>Rating Point:${product.rating} </p>
       <h2>Price: $ ${product.price}</h2>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
       <button id="details-btn" class="btn btn-danger">Details</button></div>
@@ -74,7 +75,8 @@ const updateTaxAndCharge = () => {
 //grandTotal update function
 const updateTotal = () => {
   const grandTotal =
-    getInputValue("price") + getInputValue("delivery-charge") +
+    getInputValue("price") +
+    getInputValue("delivery-charge") +
     getInputValue("total-tax");
   document.getElementById("total").innerText = grandTotal;
 };
