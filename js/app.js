@@ -13,19 +13,23 @@ const showProducts = (products) => {
   for (const product of allProducts) {
     const div = document.createElement("div");
     div.classList.add("product");
-    div.innerHTML = `<div class="single-product">
-      <div>
-    <img class="product-image" src=${product.image}></img>
-      </div>
-      <h3>${product.title}</h3>
-      <p>Category: ${product.category}</p>
-      <div class="d-flex justify-content-evenly">
-              <p class="text-warning fw-bold"><i class="fas fa-star"></i> ${product.rating.rate}</p>
-              <p class="text-success fw-bold"><i class="fas fa-user"></i> ${product.rating.count}</p>
-            </div>
-      <h2>Price: $ ${product.price}</h2>
+    div.innerHTML = `<div class="single-product d-flex flex-column justify-content-around">
+    <div> 
+    <div>
+      <img class="product-image" src=${product.image}></img>
+    </div>
+        <h3>${product.title}</h3>
+        <p>Category: ${product.category}</p>
+        <div class="d-flex justify-content-evenly">
+            <p class="text-warning fw-bold"><i class="fas fa-star"></i> ${product.rating.rate}</p>
+            <p class="text-success fw-bold"><i class="fas fa-user"></i> ${product.rating.count}</p>
+         </div>
+        <h2>Price: $ ${product.price}</h2>
+  </div>
+  <div>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">Add to Cart</button>
-      <button id="details-btn" class="btn btn-dark">Details</button></div>
+      <button id="details-btn" class="btn btn-dark">Details</button>
+  </div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -41,7 +45,7 @@ const addToCart = (id, price) => {
 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
-  const converted = parseInt(element);
+  const converted = parseFloat(element);
   return converted;
 };
 
@@ -83,5 +87,6 @@ const updateTotal = () => {
     getInputValue("price") +
     getInputValue("delivery-charge") +
     getInputValue("total-tax");
-  document.getElementById("total").innerText = parseFloat(grandTotal);
+  document.getElementById("total").innerText =
+    parseFloat(grandTotal).toFixed(2);
 };

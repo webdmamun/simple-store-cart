@@ -28,20 +28,21 @@ body {
 #all-products {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  row-gap: 20px;
   text-align: center;
   width: 100%;
   margin: auto;
+  padding: 5px;
   align-items: center;
   justify-content: center;
 }
 .product {
   height: 100%;
-  width: 100%;
   margin: 20px;
 }
 .single-product {
   background-color: antiquewhite;
-  margin: 10px;
+  height: 100%;
   padding: 10px;
   transition: 0.6s;
 }
