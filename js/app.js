@@ -1,3 +1,4 @@
+// Fetch and Call API Data
 const loadProducts = () => {
   const url = `https://raw.githubusercontent.com/ProgrammingHero1/ranga-store-api/main/ranga-api.json`;
   fetch(url)
@@ -18,8 +19,10 @@ const showProducts = (products) => {
       </div>
       <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
-      <p>Rating Point: ${product.rating.rate}</p>
-      <p>Rating Count: ${product.rating.count}</p>
+      <div class="d-flex justify-content-evenly">
+              <p class="text-warning fw-bold"><i class="fas fa-star"></i> ${product.rating.rate}</p>
+              <p class="text-success fw-bold"><i class="fas fa-user"></i> ${product.rating.count}</p>
+            </div>
       <h2>Price: $ ${product.price}</h2>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
       <button id="details-btn" class="btn btn-danger">Details</button></div>
@@ -27,11 +30,11 @@ const showProducts = (products) => {
     document.getElementById("all-products").appendChild(div);
   }
 };
+// add product on the cart
 let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
   updatePrice("price", price);
-
   updateTaxAndCharge();
   document.getElementById("total-Products").innerText = count;
 };
@@ -48,6 +51,7 @@ const updatePrice = (id, value) => {
   const convertPrice = parseFloat(value);
   const total = convertedOldPrice + convertPrice;
   document.getElementById(id).innerText = parseFloat(total).toFixed(2);
+  updateTotal();
 };
 
 // set innerText function
@@ -70,6 +74,7 @@ const updateTaxAndCharge = () => {
     setInnerText("delivery-charge", 60);
     setInnerText("total-tax", priceConverted * 0.4);
   }
+  updateTotal();
 };
 
 //grandTotal update function
@@ -78,5 +83,5 @@ const updateTotal = () => {
     getInputValue("price") +
     getInputValue("delivery-charge") +
     getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal;
+  document.getElementById("total").innerText = parseFloat(grandTotal);
 };
